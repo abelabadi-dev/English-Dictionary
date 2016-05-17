@@ -15,9 +15,10 @@ var Dictionary = {
                     url:'dictServlet',
                     type:'post',
                     dataType:'json',
-                    success:function (response) {
-                    	console.log(response);
-                    }
+                    success:Dictionary.displayResponse
 		});
-	}
+	},
+        displayResponse: function (response) {
+            console.log(response);
+        }
 };
