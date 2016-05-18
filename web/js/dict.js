@@ -4,21 +4,27 @@ $(function () {
 });
 
 var Dictionary = {
-	word : $('#input-word').val(),
+	'word':"",
 	init: function() {
-            $('#submit-word').on('click',function () {
-                    Dictionary.sendAjaxRequest();
+            $('#submit-word').on('click',function (event) {
+                Dictionary.word= $('#input-word').val();
+                Dictionary.sendAjaxRequest();
             });
 	},
 	sendAjaxRequest: function () {
+            console.log("Ajax:"+Dictionary.word);
 		$.ajax({
                     url:'dictServlet',
-                    type:'post',
+                    type:'POST',
                     dataType:'json',
+                    data: {'word':Dictionary.word},
                     success:Dictionary.displayResponse
-		});
+		}).fail(function (parameters) {
+            console.log("failed");
+            });
 	},
         displayResponse: function (response) {
+            
             console.log(response);
         }
 };
