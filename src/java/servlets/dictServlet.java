@@ -53,8 +53,8 @@ public class dictServlet extends HttpServlet {
         DbConnection db = new DbConnection();
         db.setJsonobject(word);
        // System.out.println(word);
-//        System.out.println(obj);
-        out.print(db.getJsonobject());
+       // System.out.println(db.getJsonObjectList());
+        out.print(db.getJsonObjectList());
         out.flush();
     }
 

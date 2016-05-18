@@ -24,7 +24,10 @@ var Dictionary = {
             });
 	},
         displayResponse: function (response) {
-            
             console.log(response);
+//            $.each(function (index,value) {
+//                console.log(index);
+//                console.log(value);
+//            });
         }
 };

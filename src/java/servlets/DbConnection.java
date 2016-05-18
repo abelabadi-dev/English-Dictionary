@@ -8,11 +8,11 @@ package servlets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 /**
@@ -25,11 +25,12 @@ public class DbConnection {
     String password = "12345";
     Connection conn;
     JSONObject jsonobject;
+    JSONArray jsonObjectList;
     
     DbConnection(){
         try {
             this.conn =  DriverManager.getConnection(url, username, password);
-            jsonobject = new JSONObject();
+            jsonObjectList = new JSONArray();
         } catch (SQLException ex) {
             Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -47,16 +48,26 @@ public class DbConnection {
 //            String wordtype = rsmd.getColumnName(2);
 //            String definition = rsmd.getColumnName(3);
 //            System.out.println("columns: "+word+" "+wordtype+" "+definition);
+            int index = 0;
             while (rs.next()) {
                 //Retrieve by column name
-
+                jsonobject = new JSONObject();
+                
                 jsonobject.put("word", rs.getString("word"));
                 jsonobject.put("wordtype", rs.getString("wordtype"));
                 jsonobject.put("definition", rs.getString("definition"));
+                jsonObjectList.add(index, jsonobject);
+
+                index++;
             }
+
         }catch(Exception e){System.out.println(e);}                      
 
         
+    }
+
+    public JSONArray getJsonObjectList() {
+        return jsonObjectList;
     }
     
     public JSONObject getJsonobject(){
